@@ -8,10 +8,16 @@
 import Foundation
 
 class Client {
+    var grade: String
+    var priority: Int
     var waitingNumber: Int
+    var taskType: String
 
-    init(waitingNumber:Int) {
+    init(grade: String, priority: Int, waitingNumber: Int, taskType: String) {
+        self.grade = grade
+        self.priority = priority
         self.waitingNumber = waitingNumber
+        self.taskType = taskType
     }
 }
 
