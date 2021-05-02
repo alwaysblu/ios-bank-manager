@@ -97,7 +97,7 @@ class BankManager {
     }
     
     func manageBank() throws {
-        let numberOfBanker: Int = 1
+        let numberOfBanker: Int = 3
         while true {
             startBankMenu()
             guard let isValid = checkInputValidation() else { throw BankError.userInput }
