@@ -13,7 +13,7 @@ class Banker: Operation {
     let notification: NSNotification.Name
     var businessTime: Float = 0
     
-    init(bankerNumber: Int, client: Client? , notification: NSNotification.Name) {
+    init(bankerNumber: Int, client: Client?, notification: NSNotification.Name) {
         self.bankerNumber = bankerNumber
         self.client = client
         self.notification = notification
