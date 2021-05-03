@@ -47,7 +47,7 @@ class Banker: Operation {
         return
     }
     
-    func requestLoan(notification: NSNotification.Name, client: Client) {
+    private func requestLoan(notification: NSNotification.Name, client: Client) {
         self.operationQueue.isSuspended = true
         NotificationCenter.default.post(name: notification, object: nil, userInfo: ["banker": self, "client": client])
         operationQueue.addOperation {}
@@ -58,5 +58,4 @@ class Banker: Operation {
         self.businessTime += time
         Thread.sleep(forTimeInterval: Double(time))
     }
-   
 }

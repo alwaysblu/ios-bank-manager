@@ -70,7 +70,7 @@ class BankManager {
         }
     }
     
-    func removeAllObserver(numberOfObserver: Int) {
+    private func removeAllObserver(numberOfObserver: Int) {
         for i in 1...numberOfObserver {
             let notification = NSNotification.Name.init("\(i)th Banker")
             NotificationCenter.default.removeObserver(self, name:notification, object:nil)
@@ -90,13 +90,13 @@ class BankManager {
         lock.unlock()
     }
     
-    func updateTotalBusinessTime(userInformation: [AnyHashable: Any]) {
+    private func updateTotalBusinessTime(userInformation: [AnyHashable: Any]) {
         guard let businessTime = userInformation[UserInformationKey.businessTime] as? Float else { return }
         bank.totalBusinessTime += businessTime
         bank.totalBusinessTime = round( bank.totalBusinessTime * 100 ) / 100
     }
     
-    func manageBank() throws {
+    private func manageBank() throws {
         let numberOfBanker: Int = 3
         while true {
             startBankMenu()
