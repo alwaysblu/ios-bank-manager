@@ -13,6 +13,7 @@ class BankManager {
     var clientQueue: [Client] = []
     var operationQueue = OperationQueue()
     let lock = NSLock()
+    let headOffice = HeadOffice(lock: NSLock())
 
     private func startBankMenu() {
         print("1 : 은행 개점 \n2 : 종료")
@@ -63,7 +64,7 @@ class BankManager {
     private func createBanker(numberOfBanker: Int) {
         for i in 1...numberOfBanker {
             let notification = NSNotification.Name.init("\(i)th Banker")
-            let banker = Banker(bankerNumber: i ,client: nil, notification: notification)
+            let banker = Banker(bankerNumber: i ,client: nil, notification: notification, headOffice: headOffice)
             NotificationCenter.default.addObserver(self, selector: #selector(BankManager.updateBankCounter(notification:)), name: notification, object: nil)
             operationQueue.addOperation(banker)
         }
@@ -83,7 +84,7 @@ class BankManager {
         if clientQueue.isNotEmpty {
             guard let bankerNumber = userInformation[UserInformationKey.bankerNumber] as? Int else { return }
             guard let notificationNumber = userInformation[UserInformationKey.notificationNumber] as? NSNotification.Name else { return }
-            let banker = Banker(bankerNumber: bankerNumber, client: clientQueue.removeFirst(), notification: notificationNumber)
+            let banker = Banker(bankerNumber: bankerNumber, client: clientQueue.removeFirst(), notification: notificationNumber, headOffice: headOffice)
             operationQueue.addOperation(banker)
         }
         lock.unlock()
@@ -102,12 +103,12 @@ class BankManager {
             guard let isValid = checkInputValidation() else { throw BankError.userInput }
             guard isValid else { return }
             let numberOfClient = createClient(numberOfClient: Int.random(in: 10...30))
+            print("고객 수 :\(numberOfClient)")
             bank.totalNumberOfClinet = numberOfClient
             createBanker(numberOfBanker: numberOfBanker)
             operationQueue.waitUntilAllOperationsAreFinished()
             bank.closeBusiness()
             removeAllObserver(numberOfObserver: numberOfBanker)
-            
         }
     }
     
