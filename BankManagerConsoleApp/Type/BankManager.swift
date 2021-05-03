@@ -103,7 +103,6 @@ class BankManager {
             guard let isValid = checkInputValidation() else { throw BankError.userInput }
             guard isValid else { return }
             let numberOfClient = createClient(numberOfClient: Int.random(in: 10...30))
-            print("고객 수 :\(numberOfClient)")
             bank.totalNumberOfClinet = numberOfClient
             createBanker(numberOfBanker: numberOfBanker)
             operationQueue.waitUntilAllOperationsAreFinished()

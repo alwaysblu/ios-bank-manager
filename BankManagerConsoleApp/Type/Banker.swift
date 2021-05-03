@@ -35,7 +35,7 @@ class Banker: Operation {
     
     private func setBusinessTime(taskType: String, client: Client) {
         if taskType == ClientTask.loan {
-            let loanNotification = Notification.Name("\(client.waitingNumber)loanNotification")
+            let loanNotification = Notification.Name("\(client.waitingNumber)th loanNotification")
             NotificationCenter.default.addObserver(headOffice, selector: #selector(HeadOffice.checkLoanRequest(notification:)), name: loanNotification, object: nil)
             updateBusinessTime(time: 0.3)
             requestLoan(notification: loanNotification, client: client)
