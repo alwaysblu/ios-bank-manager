@@ -49,12 +49,12 @@ class Banker: Operation {
     
     private func requestLoan(notification: NSNotification.Name, client: Client) {
         self.operationQueue.isSuspended = true
-        NotificationCenter.default.post(name: notification, object: nil, userInfo: ["banker": self, "client": client])
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.banker: self, UserInformationKey.client: client])
         operationQueue.addOperation {}
         operationQueue.waitUntilAllOperationsAreFinished()
     }
     
-    private func updateBusinessTime(time: Float) {
+    func updateBusinessTime(time: Float) {
         self.businessTime += time
         Thread.sleep(forTimeInterval: Double(time))
     }
