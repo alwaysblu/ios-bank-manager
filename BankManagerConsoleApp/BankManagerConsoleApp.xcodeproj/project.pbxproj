@@ -15,7 +15,6 @@
 		8A38F9B5263ED2A5008A9894 /* ClientTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38F9B4263ED2A5008A9894 /* ClientTask.swift */; };
 		8A38F9B9263ED2C9008A9894 /* ClientGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38F9B8263ED2C9008A9894 /* ClientGrade.swift */; };
 		8A38F9BE263EF0A0008A9894 /* HeadOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38F9BD263EF0A0008A9894 /* HeadOffice.swift */; };
-		8A38F9C1263FE42E008A9894 /* LoanRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A38F9C0263FE42E008A9894 /* LoanRequest.swift */; };
 		8A568B6A2637AF030080B567 /* BankError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A568B692637AF030080B567 /* BankError.swift */; };
 		8A568B6D2637F1FC0080B567 /* BankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A568B6C2637F1FC0080B567 /* BankManager.swift */; };
 		C7694E7A259C3EC00053667F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E79259C3EC00053667F /* main.swift */; };
@@ -42,7 +41,6 @@
 		8A38F9B4263ED2A5008A9894 /* ClientTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTask.swift; sourceTree = "<group>"; };
 		8A38F9B8263ED2C9008A9894 /* ClientGrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientGrade.swift; sourceTree = "<group>"; };
 		8A38F9BD263EF0A0008A9894 /* HeadOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadOffice.swift; sourceTree = "<group>"; };
-		8A38F9C0263FE42E008A9894 /* LoanRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanRequest.swift; sourceTree = "<group>"; };
 		8A568B692637AF030080B567 /* BankError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankError.swift; sourceTree = "<group>"; };
 		8A568B6C2637F1FC0080B567 /* BankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankManager.swift; sourceTree = "<group>"; };
 		C7694E76259C3EC00053667F /* BankManagerConsoleApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BankManagerConsoleApp; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +66,6 @@
 				66C2D44C26379D710066A921 /* Client.swift */,
 				8A568B6C2637F1FC0080B567 /* BankManager.swift */,
 				8A38F9BD263EF0A0008A9894 /* HeadOffice.swift */,
-				8A38F9C0263FE42E008A9894 /* LoanRequest.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -179,7 +176,6 @@
 				8A38F9B9263ED2C9008A9894 /* ClientGrade.swift in Sources */,
 				8A38F9BE263EF0A0008A9894 /* HeadOffice.swift in Sources */,
 				C7694E7A259C3EC00053667F /* main.swift in Sources */,
-				8A38F9C1263FE42E008A9894 /* LoanRequest.swift in Sources */,
 				8A568B6A2637AF030080B567 /* BankError.swift in Sources */,
 				8A38F99F263EABB9008A9894 /* BankMenu.swift in Sources */,
 				8A38F99C263E9BB7008A9894 /* UserInformationKey.swift in Sources */,
