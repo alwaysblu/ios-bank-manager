@@ -37,17 +37,17 @@ class Banker: Operation {
         if taskType == ClientTask.loan {
             let loanNotification = Notification.Name("\(client.waitingNumber)th Loan Notification")
             NotificationCenter.default.addObserver(self.headOffice, selector: #selector(HeadOffice.checkLoanRequest), name: loanNotification, object: nil)
+            updateBusinessTime(time: 0.3) // 은행원은 고객의 서류를 검토하는데 0.3초가 걸립니다
             requestLoan(notification: loanNotification, client: client)
-            
+            updateBusinessTime(time: 0.3) // 승인 응답을 받으면 고객에게 대출을 실행하는데 0.3초가 걸립니다
             NotificationCenter.default.removeObserver(self.headOffice, name: loanNotification, object: nil)
         }
-        businessTime =  0.7
+        updateBusinessTime(time: 0.7)
     }
     
     private func requestLoan(notification: NSNotification.Name, client: Client) {
         self.operationQueue.isSuspended = true
         NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.banker: self, UserInformationKey.client: client])
-        
         operationQueue.addOperation {}
         operationQueue.waitUntilAllOperationsAreFinished()
     }
