@@ -12,29 +12,49 @@ class Banker: Operation {
     let client: Client?
     let notification: NSNotification.Name
     var businessTime: Float = 0
+    let operationQueue = OperationQueue()
+    let headOffice: HeadOffice
     
-    init(bankerNumber: Int, client: Client?, notification: NSNotification.Name) {
+    init(bankerNumber: Int, client: Client?, notification: NSNotification.Name, headOffice: HeadOffice) {
         self.bankerNumber = bankerNumber
         self.client = client
         self.notification = notification
+        self.headOffice = headOffice
     }
     
     override func main() {
         if let client = self.client {
             let clientGrade = convertGradeToString(grade: client.grade)
             print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 시작")
-            businessTime = setBusinessTime(taskType: client.taskType)
+            setBusinessTime(taskType: client.taskType, client: client)
             Thread.sleep(forTimeInterval: Double(businessTime))
             print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 완료")
         }
         NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.bankerNumber: bankerNumber, UserInformationKey.notificationNumber: notification,UserInformationKey.businessTime: businessTime])
     }
     
-    private func setBusinessTime(taskType: String) -> Float {
+    private func setBusinessTime(taskType: String, client: Client) {
         if taskType == ClientTask.loan {
-            return 1.1
+            let loanNotification = Notification.Name("\(client.waitingNumber)th Loan Notification")
+            NotificationCenter.default.addObserver(self.headOffice, selector: #selector(HeadOffice.checkLoanRequest), name: loanNotification, object: nil)
+            requestLoan(notification: loanNotification, client: client)
+            
+            NotificationCenter.default.removeObserver(self.headOffice, name: loanNotification, object: nil)
         }
-        return 0.7
+        businessTime =  0.7
+    }
+    
+    private func requestLoan(notification: NSNotification.Name, client: Client) {
+        self.operationQueue.isSuspended = true
+        NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.banker: self, UserInformationKey.client: client])
+        
+        operationQueue.addOperation {}
+        operationQueue.waitUntilAllOperationsAreFinished()
+    }
+    
+    func updateBusinessTime(time: Float) {
+        self.businessTime += time
+        Thread.sleep(forTimeInterval: Double(time))
     }
     
     private func convertGradeToString(grade: Int) -> String {
