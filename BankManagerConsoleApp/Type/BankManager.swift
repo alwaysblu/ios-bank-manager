@@ -112,11 +112,8 @@ class BankManager {
 }
 
 extension Array {
-    @inlinable public var isNotEmpty: Bool {
-        if self.isEmpty {
-            return false
-        }
-        return true
+    public var isNotEmpty: Bool {
+        return !self.isEmpty
     }
 }
 
