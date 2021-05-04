@@ -61,7 +61,7 @@ class BankManager {
     private func removeAllObserver(numberOfObserver: Int) {
         for i in 1...numberOfObserver {
             let notification = NSNotification.Name.init("\(i)th Banker")
-            NotificationCenter.default.removeObserver(self, name:notification, object:nil)
+            NotificationCenter.default.removeObserver(self, name: notification, object: nil)
         }
     }
     

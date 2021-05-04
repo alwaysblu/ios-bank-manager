@@ -15,7 +15,6 @@ class Banker: Operation {
     let operationQueue = OperationQueue()
     let headOffice: HeadOffice
     
-    
     init(bankerNumber: Int, client: Client?, notification: NSNotification.Name, headOffice: HeadOffice) {
         self.bankerNumber = bankerNumber
         self.client = client
@@ -46,7 +45,6 @@ class Banker: Operation {
         updateBusinessTime(time: 0.7)
         return
     }
-    
     
     private func requestLoan(notification: NSNotification.Name, client: Client) {
         self.operationQueue.isSuspended = true
