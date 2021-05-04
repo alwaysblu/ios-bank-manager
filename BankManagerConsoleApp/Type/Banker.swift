@@ -57,7 +57,7 @@ class Banker: Operation {
         Thread.sleep(forTimeInterval: Double(time))
     }
     
-    private func convertGradeToString(grade: Int) -> String {
+    func convertGradeToString(grade: Int) -> String {
         switch grade {
         case 1:
             return ClientGrade.vvip

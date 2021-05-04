@@ -10,8 +10,14 @@ import Foundation
 class HeadOffice {
     let lock = NSLock()
     @objc func checkLoanRequest(notification: Notification) {
+        guard let userInformation = notification.userInfo else { return }
+        guard let banker = userInformation[UserInformationKey.banker] as? Banker, let client = userInformation[UserInformationKey.client] as? Client else { return }
+        let clientGrade = banker.convertGradeToString(grade: client.grade)
         lock.lock()
-        
+        print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)심사 시작")
+        banker.updateBusinessTime(time: 0.5) //본사의 대출심사는 0.5초가 걸립니다
+        banker.operationQueue.isSuspended = false
+        print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)심사 완료")
         lock.unlock()
     }
 }
