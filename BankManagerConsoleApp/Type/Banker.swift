@@ -28,7 +28,7 @@ class Banker: Operation {
             print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 시작")
             setBusinessTime(taskType: client.taskType, client: client)
             Thread.sleep(forTimeInterval: Double(businessTime))
-            print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 완료")
+            print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 완료 \(self.businessTime)")
         }
         NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.bankerNumber: bankerNumber, UserInformationKey.notificationNumber: notification,UserInformationKey.businessTime: businessTime])
     }
@@ -41,8 +41,10 @@ class Banker: Operation {
             requestLoan(notification: loanNotification, client: client)
             updateBusinessTime(time: 0.3) // 승인 응답을 받으면 고객에게 대출을 실행하는데 0.3초가 걸립니다
             NotificationCenter.default.removeObserver(self.headOffice, name: loanNotification, object: nil)
+            return
         }
         updateBusinessTime(time: 0.7)
+        return
     }
     
     private func requestLoan(notification: NSNotification.Name, client: Client) {
