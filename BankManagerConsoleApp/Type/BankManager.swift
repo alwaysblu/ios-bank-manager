@@ -12,8 +12,9 @@ class BankManager {
     var bank = Bank(totalNumberOfClinet: 0)
     var clientQueue: [Client] = []
     var operationQueue = OperationQueue()
-    let lock = NSLock()
+    let lockForClientQueue = NSLock()
     let headOffice = HeadOffice()
+    let lockForBusinessTime = NSLock()
 
     private func startBankMenu() {
         print("1 : 은행 개점 \n2 : 종료")
@@ -52,7 +53,7 @@ class BankManager {
     private func createBanker(numberOfBanker: Int) {
         for i in 1...numberOfBanker {
             let notification = NSNotification.Name.init("\(i)th Banker")
-            let banker = Banker(bankerNumber: i ,client: nil, notification: notification, headOffice: headOffice)
+            let banker = Banker(bankerNumber: i ,client: nil, notification: notification, headOffice: headOffice, lockForBusinessTime: lockForBusinessTime)
             NotificationCenter.default.addObserver(self, selector: #selector(BankManager.updateBankCounter(notification:)), name: notification, object: nil)
             operationQueue.addOperation(banker)
         }
@@ -66,16 +67,16 @@ class BankManager {
     }
     
     @objc func updateBankCounter(notification: Notification) {
-        lock.lock()
+        lockForClientQueue.lock()
         guard let userInformation = notification.userInfo else { return }
         updateTotalBusinessTime(userInformation: userInformation)
         if clientQueue.isNotEmpty {
             guard let bankerNumber = userInformation[UserInformationKey.bankerNumber] as? Int else { return }
             guard let notificationNumber = userInformation[UserInformationKey.notificationNumber] as? NSNotification.Name else { return }
-            let banker = Banker(bankerNumber: bankerNumber, client: clientQueue.removeFirst(), notification: notificationNumber, headOffice: headOffice)
+            let banker = Banker(bankerNumber: bankerNumber, client: clientQueue.removeFirst(), notification: notificationNumber, headOffice: headOffice, lockForBusinessTime: lockForBusinessTime)
             operationQueue.addOperation(banker)
         }
-        lock.unlock()
+        lockForClientQueue.unlock()
     }
     
     private func updateTotalBusinessTime(userInformation: [AnyHashable: Any]) {
