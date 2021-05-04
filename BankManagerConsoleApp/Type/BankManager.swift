@@ -13,21 +13,21 @@ class BankManager {
     var clientQueue: [Client] = []
     var operationQueue = OperationQueue()
     let lock = NSLock()
-    let headOffice = HeadOffice(lock: NSLock())
+    let headOffice = HeadOffice()
 
     private func startBankMenu() {
         print("1 : 은행 개점 \n2 : 종료")
         print("입력 :", terminator: " " )
     }
     
-    private func checkInputValidation() -> Bool? {
-        guard let userInput = readLine(), let userInputNumber = Int(userInput) else { return nil }
+    private func checkInputValidation() throws -> Bool {
+        guard let userInput = readLine(), let userInputNumber = Int(userInput) else { throw BankError.userInput }
         if userInputNumber == BankMenu.start {
             return true
         } else if userInputNumber == BankMenu.exit {
             return false
         }
-        return nil
+        throw BankError.userInput
     }
     
     private func createClient(numberOfClient: Int) -> Int {
@@ -84,29 +84,23 @@ class BankManager {
         bank.totalBusinessTime = round( bank.totalBusinessTime * 100 ) / 100
     }
     
-    private func manageBank() throws {
+    func startBank() {
         let numberOfBanker: Int = 3
         while true {
             startBankMenu()
-            guard let isValid = checkInputValidation() else { throw BankError.userInput }
-            guard isValid else { return }
+            do {
+                let isValid = try checkInputValidation()
+                guard isValid else { return }
+            } catch {
+                print(error.localizedDescription)
+                continue
+            }
             let numberOfClient = createClient(numberOfClient: Int.random(in: 10...30))
             bank.totalNumberOfClinet = numberOfClient
             createBanker(numberOfBanker: numberOfBanker)
             operationQueue.waitUntilAllOperationsAreFinished()
             bank.closeBusiness()
             removeAllObserver(numberOfObserver: numberOfBanker)
-        }
-    }
-    
-    func startBank() {
-        while true {
-            do {
-                try manageBank()
-                break
-            } catch {
-                print(error.localizedDescription)
-            }
         }
     }
 }
