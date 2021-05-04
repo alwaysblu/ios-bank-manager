@@ -42,17 +42,6 @@ class BankManager {
         return numberOfClient
     }
     
-    private func setGrade(priority: Int) -> String {
-        switch priority {
-        case 1:
-            return ClientGrade.vvip
-        case 2:
-            return ClientGrade.vip
-        default:
-            return ClientGrade.general
-        }
-    }
-    
     private func setTaskType(taskTypeNumber: Int) -> String {
         if taskTypeNumber == 1 {
             return ClientTask.loan

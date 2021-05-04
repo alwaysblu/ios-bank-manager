@@ -25,9 +25,10 @@ class Banker: Operation {
     
     override func main() {
         if let client = self.client {
-            print("\(client.waitingNumber)번 \(client.grade) \(client.taskType)업무 시작")
+            let clientGrade = convertGradeToString(grade: client.grade)
+            print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 시작")
             setBusinessTime(taskType: client.taskType, client: client)
-            print("\(client.waitingNumber)번 \(client.grade) \(client.taskType)업무 완료") // 대출을 실행하면 대출 업무가 끝납니다
+            print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)업무 완료") // 대출을 실행하면 대출 업무가 끝납니다
         }
         NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.bankerNumber: bankerNumber, UserInformationKey.notificationNumber: notification,UserInformationKey.businessTime: businessTime])
     }
@@ -58,4 +59,15 @@ class Banker: Operation {
         self.businessTime += time
         Thread.sleep(forTimeInterval: Double(time))
     }
+    
+    private func convertGradeToString(grade: Int) -> String {
+            switch grade {
+            case 1:
+                return ClientGrade.vvip
+            case 2:
+                return ClientGrade.vip
+            default:
+                return ClientGrade.general
+            }
+        }
 }
