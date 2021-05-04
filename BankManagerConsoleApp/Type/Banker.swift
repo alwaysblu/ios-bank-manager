@@ -27,8 +27,7 @@ class Banker: Operation {
         if let client = self.client {
             print("\(client.waitingNumber)번 \(client.grade) \(client.taskType)업무 시작")
             setBusinessTime(taskType: client.taskType, client: client)
-            Thread.sleep(forTimeInterval: Double(businessTime))
-            print("\(client.waitingNumber)번 \(client.grade) \(client.taskType)업무 완료")
+            print("\(client.waitingNumber)번 \(client.grade) \(client.taskType)업무 완료") // 대출을 실행하면 대출 업무가 끝납니다
         }
         NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.bankerNumber: bankerNumber, UserInformationKey.notificationNumber: notification,UserInformationKey.businessTime: businessTime])
     }
@@ -37,21 +36,22 @@ class Banker: Operation {
         if taskType == ClientTask.loan {
             let loanNotification = Notification.Name("\(client.waitingNumber)th loanNotification")
             NotificationCenter.default.addObserver(headOffice, selector: #selector(HeadOffice.checkLoanRequest(notification:)), name: loanNotification, object: nil)
-            updateBusinessTime(time: 0.3)
-            requestLoan(notification: loanNotification, client: client)
-            updateBusinessTime(time: 0.3)
+            updateBusinessTime(time: 0.3) // 은행원은 고객의 서류를 검토하는데 0.3초가 걸립니다
+            requestLoan(notification: loanNotification, client: client) //서류를 검토하면 본사로 대출 승인을 요청합니다
+            updateBusinessTime(time: 0.3) // 승인 응답을 받으면 고객에게 대출을 실행하는데 0.3초가 걸립니다
             NotificationCenter.default.removeObserver(headOffice, name: notification, object: nil)
             return
         }
-        businessTime += 0.7
+        updateBusinessTime(time: 0.7)
         return
     }
+    
     
     private func requestLoan(notification: NSNotification.Name, client: Client) {
         self.operationQueue.isSuspended = true
         NotificationCenter.default.post(name: notification, object: nil, userInfo: [UserInformationKey.banker: self, UserInformationKey.client: client])
         operationQueue.addOperation {}
-        operationQueue.waitUntilAllOperationsAreFinished()
+        operationQueue.waitUntilAllOperationsAreFinished()//본사의 대출 승인 응답이 올 때 까지 은행원은 대기해야합니다
     }
     
     func updateBusinessTime(time: Float) {
