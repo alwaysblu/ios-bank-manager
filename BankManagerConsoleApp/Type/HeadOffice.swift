@@ -15,7 +15,7 @@ class HeadOffice {
         let clientGrade = banker.convertGradeToString(grade: client.grade)
         lock.lock()
         print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)심사 시작")
-        banker.updateBusinessTime(time: 0.5) //본사의 대출심사는 0.5초가 걸립니다
+        banker.updateBusinessTime(time: 0.5) 
         banker.operationQueue.isSuspended = false
         print("\(client.waitingNumber)번 \(clientGrade) \(client.taskType)심사 완료")
         lock.unlock()
