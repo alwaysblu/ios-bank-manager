@@ -6,7 +6,7 @@
 
 ## 브랜치 : STEP1, STEP2, STEP3
 ## Pull Request : [STEP1](https://github.com/yagom-academy/ios-bank-manager/pull/31),   [STEP2](https://github.com/yagom-academy/ios-bank-manager/pull/43),    [STEP3](https://github.com/yagom-academy/ios-bank-manager/pull/47) 
-## 우리 팀만의 규칙
+## 우리 팀만의 규칙 [JM, Summer]
 
 - 모든 팀원이 참여하는 것과 같은 기본적인 규칙 이외의 우리 팀만의 규칙을 정해요.
 - 월, 목 활동학습 후 1시간 뒤 시작
