@@ -5,7 +5,7 @@
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
 # 브랜치 : STEP1, STEP2, STEP3
-
+# Pull Request : [STEP 1 PR](https://github.com/yagom-academy/ios-bank-manager/pull/31) [STEP 2 PR](https://github.com/yagom-academy/ios-bank-manager/pull/43) [STEP 3 PR](https://github.com/yagom-academy/ios-bank-manager/pull/47)
 ## 우리 팀만의 규칙
 
 - 모든 팀원이 참여하는 것과 같은 기본적인 규칙 이외의 우리 팀만의 규칙을 정해요.
